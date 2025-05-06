@@ -1,0 +1,49 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: My workflow
+on:
+  workflow_dispatch:
+    inputs:
+      manifest:
+        type: string
+        required: true
+        description: A sample manifest should go here, to help user
+metadata:
+  stages/v1alpha1:
+    - name: demo-staging
+      jobs:
+        - deploy-to-demo-staging
+    - name: env1
+      jobs:
+        - deploy-to-env1
+    - name: env2
+      jobs:
+        - deploy-to-env2
+    - name: env3
+      jobs:
+        - deploy-to-env3
+jobs:
+  deploy-to-demo-staging:
+    steps:
+      - name: Deploy to demo-staging
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: echo "Deploying to demo-staging"
+  deploy-to-env1:
+    steps:
+      - name: Deploy to env1
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: echo "Deploying to env1"
+  deploy-to-env2:
+    steps:
+      - name: Deploy to env2
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: echo "Deploying to env2"
+  deploy-to-env3:
+    steps:
+      - name: Deploy to env3
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: echo "Deploying to env3"
