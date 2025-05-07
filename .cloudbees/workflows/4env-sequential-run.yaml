@@ -58,19 +58,18 @@ jobs:
         shell: sh
         run: echo "Deploying to env3"
   job1:
-    needs: []
     environment: ""
     outputs: {}
     steps:
-      - run: echo "job step1 no "needs"
-        uses: docker://bb
+      - uses: docker://golang:1.20.3-alpine3.17
         name: step1
+        shell: sh
   job2-nneds-deploy:
     needs:
       - deploy-to-demo-staging
     environment: ""
     outputs: {}
     steps:
-      - run: echo "job2 needs deploy"
-        uses: docker://bb
+      - uses: docker://golang:1.20.3-alpine3.17
         name: step1
+        shell: sh
