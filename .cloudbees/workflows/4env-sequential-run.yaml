@@ -61,7 +61,8 @@ jobs:
     environment: ""
     outputs: {}
     steps:
-      - uses: docker://golang:1.20.3-alpine3.17
+      - run: echo "job1"
+        uses: docker://golang:1.20.3-alpine3.17
         name: step1
         shell: sh
   job2-nneds-deploy:
@@ -70,6 +71,7 @@ jobs:
     environment: ""
     outputs: {}
     steps:
-      - uses: docker://golang:1.20.3-alpine3.17
+      - run: echo "job2 with needs"
+        uses: docker://golang:1.20.3-alpine3.17
         name: step1
         shell: sh
