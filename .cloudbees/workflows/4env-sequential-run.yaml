@@ -13,6 +13,7 @@ metadata:
     - name: demo-staging
       jobs:
         - deploy-to-demo-staging
+        - test
     - name: env1
       jobs:
         - deploy-to-env1
@@ -29,9 +30,10 @@ jobs:
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: echo "Deploying to demo-staging"
+    needs: []
   deploy-to-env1:
     needs:
-      - deploy-to-demo-staging
+      - test
     steps:
       - name: Deploy to env1
         uses: docker://golang:1.20.3-alpine3.17
@@ -53,3 +55,12 @@ jobs:
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: echo "Deploying to env3"
+  test:
+    needs:
+      - deploy-to-demo-staging
+    environment: ""
+    outputs: {}
+    steps:
+      - run: echo "CORINNE"
+        uses: docker://bb
+        name: corinne
