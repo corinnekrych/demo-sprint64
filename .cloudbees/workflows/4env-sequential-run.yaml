@@ -13,6 +13,8 @@ metadata:
     - name: demo-staging
       jobs:
         - deploy-to-demo-staging
+        - job1
+        - job2-nneds-deploy
     - name: env1
       jobs:
         - deploy-to-env1
@@ -32,7 +34,8 @@ jobs:
     needs: []
   deploy-to-env1:
     needs:
-      - deploy-to-demo-staging
+      - job1
+      - job2-nneds-deploy
     steps:
       - name: Deploy to env1
         uses: docker://golang:1.20.3-alpine3.17
@@ -54,3 +57,20 @@ jobs:
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: echo "Deploying to env3"
+  job1:
+    needs: []
+    environment: ""
+    outputs: {}
+    steps:
+      - run: echo "job step1 no "needs"
+        uses: docker://bb
+        name: step1
+  job2-nneds-deploy:
+    needs:
+      - deploy-to-demo-staging
+    environment: ""
+    outputs: {}
+    steps:
+      - run: echo "job2 needs deploy"
+        uses: docker://bb
+        name: step1
